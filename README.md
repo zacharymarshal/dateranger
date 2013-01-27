@@ -4,11 +4,13 @@ dateranger
 jQuery UI date range implementation
 
 ```html
-<div id="dateranger" data-start_date="1/25/2013" data-end_date="1/25/2013"></div>
+<div id="dateranger"></div>
 ```
 
 ```javascript
 $('#dateranger').dateranger({
+	defaultStartDate: '1/25/2013',
+	defaultEndDate: '1/25/2013',
 	onSelectStartDate: function() {},
 	onSelectEndDate: function() {},
 });
