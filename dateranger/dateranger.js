@@ -23,20 +23,22 @@
 						}
 						if ( ! start_date) {
 							start_date = $.datepicker.parseDate('mm/dd/yy', date_text);
+							settings.onSelectStartDate(start_date);
 							inst.settings.minDate = start_date;
 							return;
 						}
 						if ( ! end_date) {
 							end_date = $.datepicker.parseDate('mm/dd/yy', date_text);
+							settings.onSelectEndDate(end_date);
 							inst.settings.minDate = null;
 							return;
 						}
 					},
 					beforeShowDay: function(date) {
 						if (date >= start_date && date <= end_date) {
-							return [true, 'red'];
+							return [true, 'in_range'];
 						}
-						return [true, 'green'];
+						return [true, ''];
 					}
 				});
 			});

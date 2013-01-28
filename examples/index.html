@@ -4,11 +4,7 @@
 	<meta charset="UTF-8">
 	<title>DateRanger Example</title>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css">
-	<style>
-		.blue {background-color: blue;}
-		.red {background-color: red; border: 1px solid red;}
-		.green {background-color: green; border: 1px solid green;}
-	</style>
+	<link rel="stylesheet" href="../dateranger/dateranger.css">
 	<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 	<script src="../dateranger/dateranger.js"></script>
@@ -18,7 +14,10 @@
 	<div class="datepicker"></div>
 	<script>
 	$(function() {
-		$('.datepicker').dateranger();
+		$('.datepicker').dateranger({
+			onSelectStartDate: function(date_text) { console.log(date_text); },
+			onSelectEndDate: function(date_text) { console.log(date_text); }
+		});
 	});
 	</script>
 </body>
