@@ -11,15 +11,15 @@ jQuery UI date range implementation
 $('#dateranger').dateranger({
 	defaultStartDate: '1/25/2013',
 	defaultEndDate: '1/25/2013',
-	onSelectStartDate: function() {},
-	onSelectEndDate: function() {},
+	onSelectStartDate: function(date_text) {},
+	onSelectEndDate: function(date_text) {},
 });
 ```
 
 ```javascript
-$('#date_range_container').dateranger('setStartDate', '1/25/2013');
+$('#date_range_container').dateranger('setStartDate', new Date());
 ```
 
 ```javascript
-$('#date_range_container').dateranger('setEndDate', '1/25/2013');
+$('#date_range_container').dateranger('setEndDate', new Date());
 ```
