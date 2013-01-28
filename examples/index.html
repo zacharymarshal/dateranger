@@ -11,37 +11,14 @@
 	</style>
 	<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+	<script src="../dateranger/dateranger.js"></script>
 </head>
 <body>
-	<div id="datepicker"></div>
+	<div class="datepicker"></div>
+	<div class="datepicker"></div>
 	<script>
 	$(function() {
-		var start_date = false, end_date = false;
-		$("#datepicker").datepicker({
-			numberOfMonths: 3,
-			showButtonPanel: false,
-			onSelect: function(date_text, inst) {
-				if (start_date && end_date) {
-					start_date = false;
-					end_date = false;
-				}
-				if ( ! start_date) {
-					start_date = $.datepicker.parseDate('mm/dd/yy', date_text);
-					return;
-				}
-				if ( ! end_date) {
-					end_date = $.datepicker.parseDate('mm/dd/yy', date_text);
-					return;
-				}
-			},
-			beforeShowDay: function(date) {
-				if (date >= start_date && date <= end_date) {
-					return [true, 'red'];
-				}
-				return [true, 'green'];
-			}
-		});
-		// $("#datepicker").datepicker("show");
+		$('.datepicker').dateranger();
 	});
 	</script>
 </body>

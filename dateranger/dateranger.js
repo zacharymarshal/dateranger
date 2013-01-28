@@ -1,4 +1,5 @@
 (function( $ ) {
+
 	var methods = {
 		init : function(options) { 
 			var settings = $.extend({
@@ -9,8 +10,36 @@
 			}, options);
 
 			return this.each(function(){
-				var $this = $(this);
-				var date_picker = $this.datepicker();
+				var start_date, end_date, $this, date_picker;
+
+				$this = $(this);
+				date_picker = $this.datepicker({
+					numberOfMonths: 3,
+					showButtonPanel: false,
+					onSelect: function(date_text, inst) {
+						if (start_date && end_date) {
+							start_date = false;
+							end_date = false;
+						}
+						if ( ! start_date) {
+							start_date = $.datepicker.parseDate('mm/dd/yy', date_text);
+							return;
+						}
+						if ( ! end_date) {
+							end_date = $.datepicker.parseDate('mm/dd/yy', date_text);
+							return;
+						}
+					},
+					beforeShowDay: function(date) {
+						if (date < start_date && ! end_date) {
+							return [false];
+						}
+						if (date >= start_date && date <= end_date) {
+							return [true, 'red'];
+						}
+						return [true, 'green'];
+					}
+				});
 			});
 		},
 		setStartDate: function() {
