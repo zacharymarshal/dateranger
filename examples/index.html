@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>DateRanger Example</title>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="../dateranger/dateranger.css">
-	<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-	<script src="../dateranger/dateranger.js"></script>
+  <meta charset="UTF-8">
+  <title>DateRanger Example</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css">
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../dateranger/dateranger.css">
+  <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+  <script src="../dateranger/dateranger.js"></script>
 </head>
 <body>
-	<div class="datepicker"></div>
-	<div class="datepicker"></div>
-	<script>
-	$(function() {
-		$('.datepicker').dateranger({
-			onSelectStartDate: function(date_text) { console.log(date_text); },
-			onSelectEndDate: function(date_text) { console.log(date_text); }
-		});
-	});
-	</script>
+  <div id="dateranger-date_range_placeholder"></div>
+  <div class="row">
+    <div class="span8">
+      <div id="dateranger"></div>
+    </div>
+    <div class="span3">
+      <form>
+        <div class="control-group">
+          <label class="control-label" for="dateranger-selectable_options">Date Range</label>
+          <div class="controls">
+            <select id="dateranger-selectable_options" class="span2">
+              <option value="">Custom</option>
+              <option value="02/02/2013-02/02/2013">Today</option>
+            </select>
+          </div>
+        </div>
+        <input type="text" id="dateranger-start_date" value="03/13/2013" class="input-small selected"> - 
+        <input type="text" id="dateranger-end_date" value="03/13/2013" class="input-small">
+        <div class="form-actions">
+          <button id="dateranger-apply" class="btn btn-small">Apply</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="example.js"></script>
 </body>
 </html>
