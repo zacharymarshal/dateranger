@@ -1,69 +1,83 @@
 (function( $ ) {
+	$.widget( "ui.dateranger", {
+ 
+		// Default options
+		options: { 
+			defaultStartDate: new Date(),
+			defaultEndDate: new Date()
+		},
 
-	var methods = {
-		init : function(options) { 
-			var settings = $.extend({
-				defaultStartDate: new Date(),
-				defaultEndDate: new Date(),
-				onSelectStartDate: function() {},
-				onSelectEndDate: function() {},
-			}, options);
+		start_date: null,
+		end_date: null,
+		date_picker: null,
+	 
+		// Set up the widget
+		_create: function() {
+			var self = this;
 
-			return this.each(function(){
-				var start_date, end_date, $this, date_picker;
-
-				$this = $(this);
-				date_picker = $this.datepicker({
-					numberOfMonths: 3,
-					showButtonPanel: false,
-					onSelect: function(date_text, inst) {
-						if (start_date && end_date) {
-							start_date = false;
-							end_date = false;
-						}
-						if ( ! start_date) {
-							start_date = $.datepicker.parseDate('mm/dd/yy', date_text);
-							settings.onSelectStartDate(start_date);
-							inst.settings.minDate = start_date;
-							return;
-						}
-						if ( ! end_date) {
-							end_date = $.datepicker.parseDate('mm/dd/yy', date_text);
-							settings.onSelectEndDate(end_date);
-							inst.settings.minDate = null;
-							return;
-						}
-					},
-					beforeShowDay: function(date) {
-						if (date >= start_date && date <= end_date) {
-							return [true, 'in_range'];
-						} else {
-							return [true, ''];
-						}
+			self.date_picker = self.element.datepicker({
+				numberOfMonths: 3,
+				showButtonPanel: false,
+				onSelect: function(date_text, inst) {
+					if (self.start_date && self.end_date) {
+						self.start_date = false;
+						self.end_date = false;
 					}
-				});
+					if ( ! self.start_date) {
+						self.start_date = $.datepicker.parseDate('mm/dd/yy', date_text);
+						self.onSelectStartDate(self.start_date);
+						inst.settings.minDate = self.start_date;
+						return;
+					}
+					if ( ! self.end_date) {
+						self.end_date = $.datepicker.parseDate('mm/dd/yy', date_text);
+						self.onSelectEndDate(self.end_date);
+						inst.settings.minDate = null;
+						return;
+					}
+				},
+				beforeShowDay: function(date) {
+					if (date >= self.start_date && date <= self.end_date) {
+						return [true, 'in_range'];
+					} else {
+						return [true, ''];
+					}
+				}
 			});
 		},
-		setStartDate: function(date_text) {
-			return this.each(function(){
-				$.datepicker._selectDate('#' + $(this).attr('id'), date_text);
-			});
+	 
+		// Use the _setOption method to respond to changes to options
+		_setOption: function( key, value ) {
+			switch( key ) {
+			case "defaultStartDate":
+				break;
+			case "defaultEndDate":
+				break;
+			}
+	 
+			// In jQuery UI 1.8, you have to manually invoke the _setOption method from the base widget
+			$.Widget.prototype._setOption.apply( this, arguments );
+			// In jQuery UI 1.9 and above, you use the _super method instead
+			this._super( "_setOption", key, value );
 		},
-		setEndDate: function(date_text) {
-			return this.each(function(){
-				$.datepicker._selectDate('#' + $(this).attr('id'), date_text);
-			});
-		},
-	};
 
-	$.fn.dateranger = function(method) {
-		// Method calling logic
-		if (methods[method]) {
-			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-		} else if (typeof method === 'object' || ! method) {
-			return methods.init.apply(this, arguments);
-		} else {
-			$.error('Method ' +  method + ' does not exist on jQuery.dateranger');
+		setStartDate: function(date_text) {
+			return this.datepicker._selectDate('#' + $(this).attr('id'), date_text);
+		},
+		
+		setEndDate: function(date_text) {
+			return this.datepicker._selectDate('#' + $(this).attr('id'), date_text);
+		},
+
+		onSelectStartDate: function() {},
+
+		onSelectEndDate: function() {},
+	 
+		// Use the destroy method to clean up any modifications your widget has made to the DOM
+		destroy: function() {
+			// In jQuery UI 1.8, you must invoke the destroy method from the base widget
+			$.Widget.prototype.destroy.call( this );
+			// In jQuery UI 1.9 and above, you would define _destroy instead of destroy and not call the base method
 		}
-	};
-})( jQuery );
+	});
+}( jQuery ) );
