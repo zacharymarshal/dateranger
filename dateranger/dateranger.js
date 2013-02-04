@@ -4,7 +4,9 @@
 		// Default options
 		options: { 
 			defaultStartDate: new Date(),
-			defaultEndDate: new Date()
+			defaultEndDate: new Date(),
+			onSelectStartDate: null,
+			onSelectEndDate: null
 		},
 
 		start_date: null,
@@ -25,20 +27,28 @@
 					}
 					if ( ! self.start_date) {
 						self.start_date = $.datepicker.parseDate('mm/dd/yy', date_text);
-						self.onSelectStartDate(self.start_date);
+
+						if (self.options.onSelectStartDate) {
+							self.options.onSelectStartDate(self.start_date);
+						}
+
 						inst.settings.minDate = self.start_date;
 						return;
 					}
 					if ( ! self.end_date) {
 						self.end_date = $.datepicker.parseDate('mm/dd/yy', date_text);
-						self.onSelectEndDate(self.end_date);
+
+						if (self.options.onSelectEndDate) {
+							self.options.onSelectEndDate(self.end_date);	
+						}
+						
 						inst.settings.minDate = null;
 						return;
 					}
 				},
 				beforeShowDay: function(date) {
 					if (date >= self.start_date && date <= self.end_date) {
-						return [true, 'in_range'];
+						return [true, 'ui-dateranger-selected'];
 					} else {
 						return [true, ''];
 					}
@@ -64,14 +74,11 @@
 		setStartDate: function(date_text) {
 			return this.datepicker._selectDate('#' + $(this).attr('id'), date_text);
 		},
-		
+
 		setEndDate: function(date_text) {
 			return this.datepicker._selectDate('#' + $(this).attr('id'), date_text);
 		},
 
-		onSelectStartDate: function() {},
-
-		onSelectEndDate: function() {},
 	 
 		// Use the destroy method to clean up any modifications your widget has made to the DOM
 		destroy: function() {
