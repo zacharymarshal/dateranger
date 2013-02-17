@@ -37,15 +37,17 @@
 
 			switch( key ) {
 				case "start_date":
+					var org_value = value;
 					value = $.datepicker.parseDate('mm/dd/yy', value);
 					this._datepicker.settings.minDate = value;
-					this._trigger('onSelectStartDate', null, {date_text: value, inst: this._datepicker});
+					this._trigger('onSelectStartDate', null, {date_text: org_value, inst: this._datepicker});
 					break;
 
 				case "end_date":
+					var org_value = value;
 					value = $.datepicker.parseDate('mm/dd/yy', value);
 					this._datepicker.settings.minDate = null;
-					this._trigger('onSelectEndDate', null, {date_text: value, inst: this._datepicker});
+					this._trigger('onSelectEndDate', null, {date_text: org_value, inst: this._datepicker});
 					break;
 			}
 	 
