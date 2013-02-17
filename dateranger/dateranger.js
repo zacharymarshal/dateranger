@@ -29,7 +29,7 @@
 						return [true, ''];
 					}
 				}
-			});
+			}).data('datepicker');
 		},
 	 
 		// Use the _setOption method to respond to changes to options
@@ -38,13 +38,13 @@
 			switch( key ) {
 				case "start_date":
 					value = $.datepicker.parseDate('mm/dd/yy', value);
-					this._datepicker.minDate = value;
+					this._datepicker.settings.minDate = value;
 					this._trigger('onSelectStartDate', null, {date_text: value, inst: this._datepicker});
 					break;
 
 				case "end_date":
 					value = $.datepicker.parseDate('mm/dd/yy', value);
-					this._datepicker.minDate = null;
+					this._datepicker.settings.minDate = null;
 					this._trigger('onSelectEndDate', null, {date_text: value, inst: this._datepicker});
 					break;
 			}
