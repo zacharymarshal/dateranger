@@ -10,3 +10,7 @@ input.selected {
 #dateranger-date_range_placeholder {
 	padding: 10px;
 }
+
+.ui-dateranger-small {
+	font-size: 62.5%;
+}
