@@ -4,25 +4,37 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Dateranger - Default Functionality</title>
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
 	<link rel="stylesheet" href="../dateranger/dateranger.css" />
-	<style>
-	.demo-frame {
-		width: 70%;
-		height: 350px;
-		border: 1px solid #aaa;
-		}
-	</style>
+	<link rel="stylesheet" href="examples.css" />
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-	<script src="../dateranger/dateranger.js"></script>
-	<script>
-	$(function() {
-		$( "#dateranger" ).dateranger();
-	});
-	</script>
+	<script src="examples.js"></script>
 </head>
 <body>
-	<iframe src="default.html" class="demo-frame"></iframe>
+	<div class="container">
+		<h1>Dateranger</h1>
+		<div class="row">
+			<div class="span8">
+				<iframe src="demos/default.html" class="demo-frame"></iframe>
+			</div>
+			<div class="span4">
+				<h2>Examples</h2>
+				<ul class="demo-list nav nav-tabs nav-stacked">
+					<li class="active"><a href="demos/default.html">Default functionality</a></li>
+					<li><a href="demos/dropdown.html">Dropdown</a></li>
+					<li><a href="demos/inputs.html">Inputs</a></li>
+					<li><a href="demos/custom_dropdown_with_inputs.html">Dropdown with Inputs</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span8">
+				<div class="demo-source"></div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
