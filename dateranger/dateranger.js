@@ -67,7 +67,7 @@
 
 			this._setOption('end_date', date);
 			this.element.datepicker('option', 'minDate', null);
-			this._trigger('onSelectStartDate', null, {date_text: $.datepicker.formatDate(this.options.dateFormat, date), inst: this.element});
+			this._trigger('onSelectEndDate', null, {date_text: $.datepicker.formatDate(this.options.dateFormat, date), inst: this.element});
 		},
 
 	 
