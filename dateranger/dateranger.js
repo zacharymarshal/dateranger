@@ -6,18 +6,18 @@
 			start_date: new Date(),
 			end_date: new Date(),
 			numberOfMonths: 3,
+			dateFormat: 'mm/dd/yy',
 			onSelectStartDate: function(e, obj) {},
 			onSelectEndDate: function(e, obj) {}
 		},
-
-		_datepicker: null,
 	 
 		// Set up the widget
 		_create: function() {
 			var self = this;
 
-			self._datepicker = self.element.datepicker({
+			self.element.datepicker({
 				numberOfMonths: self.options.numberOfMonths,
+				dateFormat: self.options.dateFormat,
 				showButtonPanel: false,
 				onSelect: function(date_text, inst) {
 					self._onSelect(date_text, inst);
@@ -29,32 +29,7 @@
 						return [true, ''];
 					}
 				}
-			}).data('datepicker');
-		},
-	 
-		// Use the _setOption method to respond to changes to options
-		_setOption: function( key, value ) {
-
-			switch( key ) {
-				case "start_date":
-					var org_value = value;
-					value = $.datepicker.parseDate('mm/dd/yy', value);
-					this._datepicker.settings.minDate = value;
-					this._trigger('onSelectStartDate', null, {date_text: org_value, inst: this._datepicker});
-					break;
-
-				case "end_date":
-					var org_value = value;
-					value = $.datepicker.parseDate('mm/dd/yy', value);
-					this._datepicker.settings.minDate = null;
-					this._trigger('onSelectEndDate', null, {date_text: org_value, inst: this._datepicker});
-					break;
-			}
-	 
-			// In jQuery UI 1.8, you have to manually invoke the _setOption method from the base widget
-			$.Widget.prototype._setOption.apply( this, arguments );
-			// In jQuery UI 1.9 and above, you use the _super method instead
-			this._super( "_setOption", key, value );
+			});
 		},
 
 
@@ -75,12 +50,24 @@
 		},
 
 
-		setStartDate: function(date_text) {
-			this._setOption('start_date', date_text);
+		setStartDate: function(date) {
+			if ( !(date instanceof Date) ) {
+				date = $.datepicker.parseDate(this.options.dateFormat, date);
+			}
+
+			this._setOption('start_date', date);
+			this.element.datepicker('option', 'minDate', date);
+			this._trigger('onSelectStartDate', null, {date_text: $.datepicker.formatDate(this.options.dateFormat, date), inst: this.element});
 		},
 
-		setEndDate: function(date_text) {
-			this._setOption('end_date', date_text);
+		setEndDate: function(date) {
+			if ( !(date instanceof Date) ) {
+				date = $.datepicker.parseDate(this.options.dateFormat, date);
+			}
+
+			this._setOption('end_date', date);
+			this.element.datepicker('option', 'minDate', null);
+			this._trigger('onSelectStartDate', null, {date_text: $.datepicker.formatDate(this.options.dateFormat, date), inst: this.element});
 		},
 
 	 
